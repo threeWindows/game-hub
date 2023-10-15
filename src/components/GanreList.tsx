@@ -1,9 +1,12 @@
-import { HStack, List, ListItem, Image, Text } from "@chakra-ui/react";
+import { HStack, List, ListItem, Image, Text, Spinner } from "@chakra-ui/react";
 import useGanres from "../hooks/useGanres";
 import getCroppedImageUrl from "../services/image-url";
 
 const GanreList = () => {
-  const { data } = useGanres();
+  const { data, isLoading, error } = useGanres();
+
+  if (error) return null;
+  if (isLoading) return <Spinner />;
 
   return (
     <div>
