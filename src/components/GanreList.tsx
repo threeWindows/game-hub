@@ -1,8 +1,20 @@
-import { HStack, List, ListItem, Image, Text, Spinner } from "@chakra-ui/react";
-import useGanres from "../hooks/useGanres";
+import {
+  HStack,
+  List,
+  ListItem,
+  Image,
+  Text,
+  Spinner,
+  Button
+} from "@chakra-ui/react";
+import useGanres, { Genre } from "../hooks/useGanres";
 import getCroppedImageUrl from "../services/image-url";
 
-const GanreList = () => {
+interface Props {
+  onSelectGenre: (genre: Genre) => void;
+}
+
+const GanreList = ({ onSelectGenre }: Props) => {
   const { data, isLoading, error } = useGanres();
 
   if (error) return null;
@@ -19,7 +31,13 @@ const GanreList = () => {
                 borderRadius={8}
                 src={getCroppedImageUrl(genre.image_background)}
               />
-              <Text fontSize="lg">{genre.name}</Text>
+              <Button
+                onClick={() => onSelectGenre(genre)}
+                variant="link"
+                fontSize="lg"
+              >
+                {genre.name}
+              </Button>
             </HStack>
           </ListItem>
         ))}
